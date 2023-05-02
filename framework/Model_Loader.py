@@ -1,3 +1,15 @@
+'''
+Author: Timothy Holt - tabholt@gmail.com
+May 2022
+
+This file contains:
+    - The Model_Container class
+        - designed to load raw data sets
+        - split data sets automatically into test and train data sets
+        - have a simple interface 
+
+'''
+
 from framework import Label_Class
 from framework.Estimation_Framework import Model
 

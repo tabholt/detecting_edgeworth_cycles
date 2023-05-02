@@ -1,3 +1,23 @@
+'''
+Author: Timothy Holt - tabholt@gmail.com
+May 2022
+
+Model runner script for Random Forest models.
+To Use:
+    - call this script using python
+    - provide command line arguments [region]
+
+    
+Command Line Arguments:
+    region : in {'de', 'nsw', 'wa'} - What region you would like to run an LSTM
+        model for
+
+        
+Output:
+    - Will print a prediction truth table to terminal once training complete.
+    - Save accuracy results to the named logfile.
+'''
+
 import os
 import sys
 import time

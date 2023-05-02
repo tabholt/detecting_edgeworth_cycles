@@ -1,3 +1,13 @@
+'''
+Author: Timothy Holt - tabholt@gmail.com
+May 2022
+
+This file contains:
+    - Dictionaries and lists for some important default parameters to make
+      the framework function
+'''
+
+
 MAGS_default_domains = {
     'wa': {'PRNR': [-8, 8],
            'NMC': [-5, 2],

@@ -1,3 +1,22 @@
+'''
+Author: Timothy Holt - tabholt@gmail.com
+May 2022
+
+This file contains:
+    - The mathematical basis for the parametric models
+    - The Memoized Adaptive Grid Search (MAGS) algorithm
+    - The Model class which is the interface for parametric models
+      and is also used to extract the features for the machine
+      learning methods.
+
+Notes:
+    - All methods are treated with a uniform interface
+    - The b_ functions contain the mathematical definition of models
+    - The g_ functions are boolean versions to evaluate cycling status
+    - Model class is instantiated with a list of Label objects as defined
+      in file Label_Class.py
+'''
+
 import math
 import time
 import numpy as np
@@ -106,9 +125,6 @@ def b_FT2(detrended_price):
     *** Fourier Transform - HHI FT2 ***
     '''
     fft, _ = get_fft(detrended_price)
-    # f_sum = np.sum(fft)
-    # f_norm = np.divide(fft, f_sum)
-    # hhi = np.sum(np.multiply(f_norm, f_norm))
     hhi = np.sum(np.multiply(fft, fft))
     return hhi
 
@@ -139,9 +155,6 @@ def b_LS2(detrended_price):
     *** LS Periodogram - HHI LS2 ***
     '''
     lomb, _ = get_ls(detrended_price)
-    # l_sum = np.sum(lomb)
-    # l_norm = np.divide(lomb, l_sum)
-    # hhi = np.sum(np.multiply(l_norm, l_norm))
     hhi = np.sum(np.multiply(lomb, lomb))
     return hhi
 
@@ -388,7 +401,6 @@ class Model(object):
             ll = 0
             Lambda_array = Lambda(self.method_g_dict[method](theta))
             ll = log_l(self.truth, Lambda_array)
-            # ll /= len(self.train_set)
             return ll
         return calc_LL
 

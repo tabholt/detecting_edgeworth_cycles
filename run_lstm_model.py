@@ -1,3 +1,33 @@
+'''
+Author: Timothy Holt - tabholt@gmail.com
+May 2022
+
+Model runner script for LSTM models.
+To Use:
+    - call this script using python
+    - provide command line arguments [region, training_epochs, ensemble_bool]
+
+    
+Command Line Arguments:
+    region : in {'de', 'nsw', 'wa'} - What region you would like to run an LSTM
+        model for
+
+    training_epochs : positive integer - the number of epochs for which you 
+        would like to train the LSTM model. An epoch is a single run through
+        the data set. Model fit will increase with the number of epochs until 
+        over-fitting is achieved. 
+        For the paper 100 epochs was used, less than 10 is not recommended. 
+
+    ensemble_bool : in {0, 1} - whether to use ensemble LSTM model or Basic one
+        0 will give basic model, 1 will give ensemble model
+
+        
+Output:
+    - Will print TensorFlow data to the terminal as well as a prediction truth
+      table once training is complete.
+    - Save accuracy results to the named logfile.
+'''
+
 import os
 import sys
 import time

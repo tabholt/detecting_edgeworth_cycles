@@ -1,3 +1,21 @@
+'''
+Author: Timothy Holt - tabholt@gmail.com
+May 2022
+
+This file contains:
+    - The definition of the RF network architecture
+    - The wrappers for building the necessary data arrays to 
+      train and test model
+    - The wrappers to build, train, and test the RF models
+
+Notes:
+    - Init-variable 'feature_list' should be is populated with a 
+      set of features to use for RF model.
+    - Option to save and load trained models - this is somewhat 
+      robust to versions of SKLearn library used.
+
+'''
+
 import numpy as np
 import pickle
 import os

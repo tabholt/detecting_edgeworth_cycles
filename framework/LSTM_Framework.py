@@ -1,3 +1,25 @@
+'''
+Author: Timothy Holt - tabholt@gmail.com
+May 2022
+
+This file contains:
+    - The definition of the LSTM network architecture
+    - The wrappers for building the necessary data arrays to 
+      train and test model
+    - The wrappers to build, train, and test the LSTM models
+
+Notes:
+    - Init-variable 'feature_list' will define whether it is ensemble or basic
+      model. If feature_list is empty then it will be basic, if feature_list
+      is populated with a set of features it will automatically build based
+      on those features.
+    - In the paper 100 epochs was used for all training
+    - Network architecture is defined in LSTM_Model.build_network
+    - Option to save and load trained models - this is sensetive to versions of
+      TensorFlow library used.
+
+'''
+
 import numpy as np
 from collections import defaultdict
 import tensorflow as tf

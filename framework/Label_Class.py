@@ -1,4 +1,7 @@
 '''
+Author: Timothy Holt - tabholt@gmail.com
+May 2022
+
 This class is the basic structure that matches a set of labels with a time series. 
 The class should accomplish the following goals:
     - store the array of prices
@@ -258,18 +261,6 @@ class Label(object):
     def high_thresh(self):
         return self.avg_rating >= .8
 
-    # @property
-    # def first_labeler(self):
-    #     return self.human_labels[0] == 1
-
-    # @property
-    # def second_labeler(self):
-    #     return self.human_labels[1] == 1
-
-    # @property
-    # def third_labeler(self):
-    #     return self.human_labels[2] == 1
-
     #
     # Cycling Binaries
     ##################################################
@@ -295,9 +286,6 @@ class Label(object):
             'at_least_one_no': self.at_least_one_no,
             'unanimous_no': self.unanimous_no,
             'no_yeses': self.no_yeses,
-            # 'first_labeler': self.first_labeler,
-            # 'second_labeler': self.second_labeler,
-            # 'third_labeler': self.third_labeler,
         }
         return mapper[criterion]
 

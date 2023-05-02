@@ -1,3 +1,28 @@
+'''
+Author: Timothy Holt - tabholt@gmail.com
+May 2022
+
+Model runner script for parametric models.
+To Use:
+    - call this script using python
+    - provide command line arguments [region, method]
+
+    
+Command Line Arguments:
+    region : in {'de', 'nsw', 'wa'} - What region you would like to run an LSTM
+        model for
+
+    method : in {'PRNR', 'NMC', 'MIMD', 'MBPI', 'WAVY', 'FT0', 'FT1', 
+        'FT2', 'LS0', 'LS1', 'LS2', 'CS0', 'CS1', 'all'} - if 'all' is passed
+        the the a model will be build, trained, and tested for each method.
+
+
+
+Output:
+    - Will print a prediction truth table to terminal once training complete.
+    - Save accuracy results to the named logfile.
+'''
+
 import os
 import sys
 import time
