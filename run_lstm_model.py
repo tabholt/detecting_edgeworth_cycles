@@ -9,8 +9,7 @@ To Use:
 
     
 Command Line Arguments:
-    region : in {'de', 'nsw', 'wa'} - What region you would like to run an LSTM
-        model for
+    region : in {'de', 'nsw', 'wa'} - What region you would like to run an LSTM model for
 
     training_epochs : positive integer - the number of epochs for which you 
         would like to train the LSTM model. An epoch is a single run through

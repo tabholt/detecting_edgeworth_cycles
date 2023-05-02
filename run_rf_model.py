@@ -9,8 +9,7 @@ To Use:
 
     
 Command Line Arguments:
-    region : in {'de', 'nsw', 'wa'} - What region you would like to run an LSTM
-        model for
+    region : in {'de', 'nsw', 'wa'} - What region you would like to run an RF model for
 
         
 Output:
