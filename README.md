@@ -1,6 +1,19 @@
 # Detecting Edgeworth Cycles
 Replication scripts for "Detecting Edgeworth Cycles". The scripts in this repository allow the user to test the various parametric, random forest, and LSTM models that were detailed in the paper. 
 
+## Cloning the Repository
+To run the code, you must first download (clone) this repository:
+1. Open a terminal and navigate to your desired directory using   
+
+        cd directory_path
+2. Clone the repository using:
+        
+        git clone https://github.com/tabholt/detecting_edgeworth_cycles.git
+
+3. Navigate into the repository using:
+
+        cd detecting_edgeworth_cycles
+
 ## Package Contents
 
 ### User Scripts (main directory)
