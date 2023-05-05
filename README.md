@@ -79,6 +79,16 @@ Each of the scripts requires some arguments to be passed to it at run time to de
 
 replacing `script_name.py` with the name of your script, and the various arg1, arg2, arg3 with your chosen parameter values.
 
+**Note:** You must extract the JSON files from the zipped folder `label_data_files.zip` before you can run the scripts.
+
+### Steps to unzip
+1. use your favorite unzipping program to extract the contents of the folder.
+2. ensure that the files: 
+   - `german_label_db.json`
+   - `nsw_label_db.json`
+   - `wa_label_db.json`
+
+    are in the directory `detecting_edgeworth_cycles/label_databases/`
 ### Plotting samples of data
 To plot $n$ random samples of data from a given region run the script `plot_sample.py` 
 - arg1 = region in {wa, nsw, de}
