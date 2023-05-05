@@ -1,6 +1,6 @@
 '''
 Author: Timothy Holt - tabholt@gmail.com
-May 2022
+May 2023
 
 This class is the basic structure that matches a set of labels with a time series. 
 The class should accomplish the following goals:

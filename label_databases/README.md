@@ -10,4 +10,4 @@ You must extract the JSON files from the zipped folder `label_data_files.zip`
    - `nsw_label_db.json`
    - `wa_label_db.json`
 
-    are in the directory `detecting_edgeworth_cycles/label_databases/`
+    are in the directory `detecting_edgeworth_cycles/label_databases/` (this directory)

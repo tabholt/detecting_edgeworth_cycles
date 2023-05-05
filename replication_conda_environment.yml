@@ -1,0 +1,12 @@
+name: edgeworth_replication_env
+channels:
+  - defaults
+dependencies:
+  - matplotlib
+  - numpy
+  - pandas
+  - python
+  - scikit-learn
+  - scipy
+  - seaborn
+  - tensorflow

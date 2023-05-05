@@ -1,6 +1,6 @@
 '''
 Author: Timothy Holt - tabholt@gmail.com
-May 2022
+May 2023
 
 This file contains:
     - Dictionaries and lists for some important default parameters to make

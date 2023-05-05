@@ -1,6 +1,6 @@
 '''
 Author: Timothy Holt - tabholt@gmail.com
-May 2022
+May 2023
 
 Model runner script for LSTM models.
 To Use:
