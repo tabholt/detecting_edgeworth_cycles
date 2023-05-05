@@ -50,7 +50,7 @@ It is recommended to use Miniconda, since this is the simplest and lightest inst
 3. Create a new environment (set of installed packages) from the provided environment yml file using 
         
         conda env create -f replication_conda_environment.yml
-
+    **Note:** you will need to be in the repository main folder for this to work since it requires the yml file.
 4. Activate new environment using: 
    
         conda activate edgeworth_replication_env
@@ -78,14 +78,14 @@ To train and test parametric models run the script `run_parametric_models.py`
 
 Once the model has run, results will be printed to the terminal, and saved in a csv log file called `parametric_model_log.csv`. Running multiple models will append new lines onto this log file.
 
-### Running RF models
-To train and test parametric models run the script `run_rf_model.py`
+### Running Random Forest models
+To train and test Random Forest models run the script `run_rf_model.py`
 - arg1 = region in {wa, nsw, de}
 
 Once the model has run, results will be printed to the terminal, and saved in a csv log file called `random_forest_model_log.csv`. Running multiple times will append new lines onto this log file.
 
 ### Running LSTM models
-To train and test parametric models run the script `run_lstm_model.py`
+To train and test LSTM models run the script `run_lstm_model.py`
 - arg1 = region in {wa, nsw, de}
 - arg2 = number of training epochs (positive integer)
 - arg3 = ensemble model boolean in {0, 1}
@@ -94,6 +94,6 @@ A training epoch is a single run through the data set. Model fit will increase w
 
 For the paper 100 epochs was used, less than 10 is not recommended. 
 
-The ensemble model bool indicates whether to use ensemble LSTM model or Basic one. 0 will give basic model, 1 will give ensemble model.
+The ensemble model bool indicates whether to use ensemble LSTM model or basic one. 0 will give basic model, 1 will give ensemble model.
 
 Once the model has run, results will be printed to the terminal, and saved in a csv log file called `lstm_model_log.csv`. Running multiple times will append new lines onto this log file.
