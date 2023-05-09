@@ -10,9 +10,13 @@ To run the code, you must first download (clone) this repository:
         
         git clone https://github.com/tabholt/detecting_edgeworth_cycles.git
 
+    **Note:** This command may not work on Windows, unless you have previously installed git. In this case, you may download this repository from the GitHub webpage and then unzip it in your desired directory. 
+
 3. Navigate into the repository using:
 
         cd detecting_edgeworth_cycles
+
+     **Note:** You may name this directory anything you like. In this case, update the name after the `cd` command. 
 
 ## Package Contents
 
@@ -39,16 +43,16 @@ To run the code, you must first download (clone) this repository:
 
 ## Requirements
 This code requires Python 3.8 or later, with the following packages and their associated dependencies:
-  - matplotlib
-  - numpy
-  - pandas
-  - python
-  - scikit-learn
-  - scipy
-  - seaborn
-  - tensorflow
+  - matplotlib (3.7.1)
+  - numpy (1.24.3)
+  - pandas (1.5.3)
+  - python (3.10.11)
+  - scikit-learn (1.2.2)
+  - scipy (1.10.1)
+  - seaborn (0.12.2)
+  - tensorflow (2.10.0)
 
-The code should be broadly compatible with recent versions of the above packages.
+**Note:** The code should be broadly compatible with recent versions of the above packages. Specific version numbers are included only for long-term replicability purposes.
 
 The easiest way to create an environment to run the code is using **[Miniconda](https://conda.io/projects/conda/en/stable/user-guide/install/)** or **[Anaconda](https://docs.anaconda.com/free/anaconda/install/)**.
 
@@ -63,7 +67,7 @@ It is recommended to use Miniconda, since this is the simplest and lightest inst
 3. Create a new environment (set of installed packages) from the provided environment yml file using 
         
         conda env create -f replication_conda_environment.yml
-    **Note:** you will need to be in the repository main folder for this to work since it requires the yml file.
+    **Note:** you will need to be in the repository main folder for this to work since it requires the `replication_conda_environment.yml` file located in the main folder.
 4. Activate new environment using: 
    
         conda activate edgeworth_replication_env
@@ -79,10 +83,10 @@ Each of the scripts requires some arguments to be passed to it at run time to de
 
 replacing `script_name.py` with the name of your script, and the various arg1, arg2, arg3 with your chosen parameter values.
 
-**Note:** You must extract the JSON files from the zipped folder `label_data_files.zip` before you can run the scripts.
+**Note:** You must extract the JSON files from the zip file `detecting_edgeworth_cycles/label_databases/label_data_files.zip` before you can run the scripts.
 
 ### Steps to unzip
-1. use your favorite unzipping program to extract the contents of the folder.
+1. use your favorite unzipping program to extract the contents of the zipped file.
 2. ensure that the files: 
    - `german_label_db.json`
    - `nsw_label_db.json`
@@ -94,12 +98,33 @@ To plot $n$ random samples of data from a given region run the script `plot_samp
 - arg1 = region in {wa, nsw, de}
 - arg2 = $n$ (positive integer)
 
+**Note:** You will need to close the plot that pops-up in order to see the subsequent plot.
+
 ### Running parametric models
 To train and test parametric models run the script `run_parametric_models.py`
 - arg1 = region in {wa, nsw, de}
-- arg2 = method in {PRNR, NMC, MIMD, MBPI, WAVY, FT0, FT1, FT2, LS0, LS1, LS2, CS0, CS1, all} - if 'all' is passed the the a model will be build, trained, and tested for each method.
+- arg2 = method in {PRNR, MIMD, NMC, MBPI, FT0, FT1, FT2, LS0, LS1, LS2, CS0, CS1, WAVY, all} - if 'all' is passed the the a model will be build, trained, and tested for each method.
 
 Once the model has run, results will be printed to the terminal, and saved in a csv log file called `parametric_model_log.csv`. Running multiple models will append new lines onto this log file.
+
+**Correspondences with Methods in Paper**
+
+| Shortcut   | Description                                                     |
+| ---------- | --------------------------------------------------------------- |
+| PRNR       | **Method 1:** Positive Runs vs. Negative Runs                   |
+| MIMD       | **Method 2:** Mean Increase vs. Mean Decrease                   |
+| NMC        | **Method 3:** Negative Median Change                            |
+| MBPI       | **Method 4:** Many Big Price Increases                          |
+| FT0        | **Method 5:** Fourier Transform (maximum value)                 |
+| FT1        | alternate Fourier Transform (tallest peak)                      |
+| FT2        | alternate Fourier Transform (Herfindahl–Hirschman Index)        |
+| LS0        | **Method 6:** Lomb-Scargle Periodogram (maximum value)          |
+| LS1        | alternate Lomb-Scargle Periodogram (tallest peak)               |
+| LS2        | alternate Lomb-Scargle Periodogram (Herfindahl–Hirschman Index) |
+| CS0        | **Method 7:** Cubic Splines (number of roots)                   |
+| CS1        | alternate Cubic Splines (integral value)                        |
+| WAVY       | number of times detrended price crosses its mean                |
+
 
 ### Running Random Forest models
 To train and test Random Forest models run the script `run_rf_model.py`
@@ -113,9 +138,7 @@ To train and test LSTM models run the script `run_lstm_model.py`
 - arg2 = number of training epochs (positive integer)
 - arg3 = ensemble model boolean in {0, 1}
 
-A training epoch is a single run through the data set. Model fit will increase with the number of epochs until over-fitting is achieved. 
-
-For the paper 100 epochs was used, less than 10 is not recommended. 
+A training epoch is a single run through the data set. Model fit will increase with the number of epochs until over-fitting is achieved. For the paper 100 epochs was used, less than 10 is not recommended. 
 
 The ensemble model bool indicates whether to use ensemble LSTM model or basic one. 0 will give basic model, 1 will give ensemble model.
 

@@ -388,7 +388,7 @@ class Label(object):
         anno_choice = {1: 'Yes',  .5: 'Maybe', 0: 'No'}
         annotate = ''
         for i, rating in enumerate(self.human_labels):
-            annotate += f'TA_{i} : {anno_choice[rating]}\n'
+            annotate += f'Labeler_{i} : {anno_choice[rating]}\n'
         plt.text(.01, .97, annotate, ha='left', va='top',
                  transform=ax.transAxes, size='large', c='red')
 

@@ -12,8 +12,8 @@ Command Line Arguments:
     region : in {'de', 'nsw', 'wa'} - What region you would like to run an LSTM
         model for
 
-    method : in {'PRNR', 'NMC', 'MIMD', 'MBPI', 'WAVY', 'FT0', 'FT1', 
-        'FT2', 'LS0', 'LS1', 'LS2', 'CS0', 'CS1', 'all'} - if 'all' is passed
+    method : in {'PRNR', 'MIMD', 'NMC', 'MBPI', 'FT0', 'FT1', 
+        'FT2', 'LS0', 'LS1', 'LS2', 'CS0', 'CS1', 'WAVY', 'all'} - if 'all' is passed
         the the a model will be build, trained, and tested for each method.
 
 
@@ -45,10 +45,9 @@ provide argv = [region, method]
 
 method in {
     'PRNR',
-    'NMC',
     'MIMD',
+    'NMC',
     'MBPI',
-    'WAVY',
     'FT0',
     'FT1',
     'FT2',
@@ -57,6 +56,7 @@ method in {
     'LS2',
     'CS0',
     'CS1',
+    'WAVY',
     'all'
 }
 '''

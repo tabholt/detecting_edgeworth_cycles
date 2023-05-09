@@ -10,10 +10,9 @@ This file contains:
 
 MAGS_default_domains = {
     'wa': {'PRNR': [-8, 8],
-           'NMC': [-5, 2],
            'MIMD': [-5, 15],
+           'NMC': [-5, 2],
            'MBPI': [-5, 25],
-           'WAVY': [0, 5000],
            'FT0': [-2, 2],
            'FT1': [-2, 2],
            'FT2': [-2, 2],
@@ -21,13 +20,13 @@ MAGS_default_domains = {
            'LS1': [-1.5, 1.5],
            'LS2': [-3, 3],
            'CS0': [0, 50],
-           'CS1': [-100, 1000]
+           'CS1': [-100, 1000],
+           'WAVY': [0, 5000],
            },
     'nsw': {'PRNR': [-5, 10],
-            'NMC': [-2, 2],
             'MIMD': [-5, 15],
+            'NMC': [-2, 2],
             'MBPI': [-5, 30],
-            'WAVY': [0, 5000],
             'FT0': [-2, 2],
             'FT1': [-2, 2],
             'FT2': [-3, 3],
@@ -35,13 +34,13 @@ MAGS_default_domains = {
             'LS1': [-2, 2],
             'LS2': [-2, 50],
             'CS0': [0, 50],
-            'CS1': [-100, 1000]
+            'CS1': [-100, 1000],
+            'WAVY': [0, 5000],
             },
     'de': {'PRNR': [-5, 5],
-           'NMC': [-2, 2],
            'MIMD': [-2, 2],
+           'NMC': [-2, 2],
            'MBPI': [-5, 15],
-           'WAVY': [0, 5000],
            'FT0': [-1, 1],
            'FT1': [-1, 1],
            'FT2': [-1, 1],
@@ -49,7 +48,8 @@ MAGS_default_domains = {
            'LS1': [-.5, 2],
            'LS2': [-2, 50],
            'CS0': [0, 50],
-           'CS1': [-100, 1000]
+           'CS1': [-100, 1000],
+           'WAVY': [0, 5000],
            }
 }
 truth_criteria= {
@@ -64,10 +64,9 @@ full_region_names = {
 }
 parametric_methods = [
     'PRNR',
-    'NMC',
     'MIMD',
+    'NMC',
     'MBPI',
-    'WAVY',
     'FT0',
     'FT1',
     'FT2',
@@ -76,27 +75,27 @@ parametric_methods = [
     'LS2',
     'CS0',
     'CS1',
-    'ALL'
+    'WAVY',
+    'ALL',
 ]
 lstm_features = [
     'PRNR',
-    'NMC',
     'MIMD',
+    'NMC',
     'MBPI',
-    'WAVY',
     'FT0',
     'FT1',
     'LS0',
     'LS1',
     'CS0',
     'CS1',
+    'WAVY',
 ]
 rf_features = [
     'PRNR',
-    'NMC',
     'MIMD',
+    'NMC',
     'MBPI',
-    'WAVY',
     'FT0',
     'FT1',
     'FT2',
@@ -104,5 +103,6 @@ rf_features = [
     'LS1',
     'LS2',
     'CS0',
-    'CS1'
+    'CS1',
+    'WAVY',
 ]
