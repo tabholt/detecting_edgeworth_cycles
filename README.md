@@ -1,5 +1,7 @@
 # Detecting Edgeworth Cycles
-Replication scripts for "Detecting Edgeworth Cycles". The scripts in this repository allow the user to test the various parametric, random forest, and LSTM models that were detailed in the paper. 
+Replication package for paper "[Detecting Edgeworth Cycles](https://ssrn.com/abstract=3934367)" by Timothy Holt, Mitsuru Igami, and Simon Scheidegger (2023).
+
+The scripts in this repository allow the user to test the various parametric, random forest, and LSTM models that were detailed in the paper, and plot random samples of the labeled data. 
 
 ## Cloning the Repository
 To run the code, you must first download (clone) this repository:
@@ -39,7 +41,7 @@ To run the code, you must first download (clone) this repository:
 - `nsw_label_db.json` : data from New South Wales
 - `wa_label_db.json` : data from Western Australia
 
-**Note:** databases must be unzipped after downloading repository
+**Note:** data files must be unzipped after downloading repository (see Running the Scripts section for details)
 
 ## Requirements
 This code requires Python 3.8 or later, with the following packages and their associated dependencies:
@@ -85,7 +87,7 @@ replacing `script_name.py` with the name of your script, and the various arg1, a
 
 **Note:** You must extract the JSON files from the zip file `detecting_edgeworth_cycles/label_databases/label_data_files.zip` before you can run the scripts.
 
-### Steps to unzip
+### Steps to unzip data files
 1. use your favorite unzipping program to extract the contents of the zipped file.
 2. ensure that the files: 
    - `german_label_db.json`
