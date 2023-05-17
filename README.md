@@ -88,8 +88,8 @@ replacing `script_name.py` with the name of your script, and the various arg1, a
 **Note:** You must extract the JSON files from the zip file `detecting_edgeworth_cycles/label_databases/label_data_files.zip` before you can run the scripts.
 
 ### Steps to unzip data files
-1. use your favorite unzipping program to extract the contents of the zipped file.
-2. ensure that the files: 
+1. Use your favorite unzipping program to extract the contents of the zipped file.
+2. Ensure that the files: 
    - `german_label_db.json`
    - `nsw_label_db.json`
    - `wa_label_db.json`
@@ -105,7 +105,7 @@ To plot $n$ random samples of data from a given region run the script `plot_samp
 ### Running parametric models
 To train and test parametric models run the script `run_parametric_models.py`
 - arg1 = region in {wa, nsw, de}
-- arg2 = method in {PRNR, MIMD, NMC, MBPI, FT0, FT1, FT2, LS0, LS1, LS2, CS0, CS1, WAVY, all} - if 'all' is passed the the a model will be build, trained, and tested for each method.
+- arg2 = method in {PRNR, MIMD, NMC, MBPI, FT0, FT1, FT2, LS0, LS1, LS2, CS0, CS1, WAVY, all} - if 'all' is passed the the a model will be built, trained, and tested for each method.
 
 Once the model has run, results will be printed to the terminal, and saved in a csv log file called `parametric_model_log.csv`. Running multiple models will append new lines onto this log file.
 

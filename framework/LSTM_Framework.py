@@ -15,7 +15,7 @@ Notes:
       on those features.
     - In the paper 100 epochs was used for all training
     - Network architecture is defined in LSTM_Model.build_network
-    - Option to save and load trained models - this is sensetive to versions of
+    - Option to save and load trained models - this is sensitive to versions of
       TensorFlow library used.
 
 '''

@@ -42,7 +42,7 @@ train_fraction = .8
 false_criterion = None
 batch_size = 30
 lstm_logger_name = 'lstm_model_log.csv'
-log_sep = ','
+log_sep = ',' # log value separators
 ########################################################
 '''
 provide argv = [region, training_epochs, ensemble_bool]

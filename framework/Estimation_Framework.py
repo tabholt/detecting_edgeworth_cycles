@@ -406,6 +406,18 @@ class Model(object):
 
     def MAGS(self, method, min_theta, max_theta,
              precision=2, resolution=10, window_cut_factor=4, objective='acc', verbose=1):
+        '''
+        Memoized Adaptive Grid Search - Simple optimization algorithm for
+        poorly behaved functions. Hard coded here for convenience and 
+        simplicity. No guarantees of optimality, but works well for this
+        application.
+
+        search domain: [min_theta, max_theta]
+
+        Accuracy and time:
+            - Proportional to resolution and precision
+            - Inversely proportional to window_cut_factor
+        '''
         timer = -1 * time.perf_counter()
 
         def acc_f(t):
