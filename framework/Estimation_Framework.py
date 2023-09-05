@@ -363,7 +363,10 @@ class Model(object):
                 'CS1': b_CS1
                 }
 
-    def calc_method_array(self, method):
+    def calc_method_array(self, method, detrend_price=True):
+        series = 'price'
+        if detrend_price:
+            series = 'detrended_price'
         if method in self.method_arrays:
             return
         b_func = self.method_base_dict[method]
@@ -374,7 +377,7 @@ class Model(object):
             if method in ['PRNR', 'NMC', 'MIMD', 'MBPI']:
                 evaluations[i] = b_func(ob.delta_price)
             else:
-                evaluations[i] = b_func(ob.detrended_price)
+                evaluations[i] = b_func(ob.series_interface(series))
         self.method_arrays[method] = evaluations
 
     def evaluate_external_data(self, data, method):

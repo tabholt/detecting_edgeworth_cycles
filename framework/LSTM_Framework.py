@@ -31,12 +31,13 @@ import pickle
 
 
 class LSTM_Model(object):
-    def __init__(self, region, truth_criterion, feature_list, train_frac, false_criterion=None, normalize=False, test_on_full_set=True, fix_seed=True):
+    def __init__(self, region, truth_criterion, feature_list, train_frac, detrend_price=True, false_criterion=None, normalize=False, test_on_full_set=True, fix_seed=True):
         self.data = Model_Container(
             region, truth_criterion, train_frac, false_criterion, test_on_full_set, fix_seed)
         self.region = region
         self.train_frac = train_frac
         self.feature_list = feature_list
+        self.detrend_price = detrend_price
         self.network = None
         self.X_tr = None
         self.X_te = None
@@ -114,7 +115,7 @@ class LSTM_Model(object):
                 if feat == 'MBPI':
                     continue
                 else:
-                    data.calc_method_array(feat)
+                    data.calc_method_array(feat, detrend_price=self.detrend_price)
             features = data.method_arrays
             features['LS'] = data.LS_array
             if 'MBPI' in self.feature_list:
@@ -169,6 +170,7 @@ class LSTM_Model(object):
             path += f'basic/{self.region}/{self.training_set_hash}/network'
         else:
             path += f'ensemble/{self.region}/{self.training_set_hash}/network'
+        print(f'saving lstm model to: {path}\n')
         os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # or any {'0', '1', '2'}
         self.network.save(path)
 

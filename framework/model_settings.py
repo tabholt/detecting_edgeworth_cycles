@@ -7,7 +7,6 @@ This file contains:
       the framework function
 '''
 
-
 MAGS_default_domains = {
     'wa': {'PRNR': [-8, 8],
            'MIMD': [-5, 15],

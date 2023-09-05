@@ -37,34 +37,41 @@ from framework.model_settings import full_region_names
 from framework.model_settings import lstm_features
 
 #################### SET PARAMETERS ####################
+# fix_seed = True
 fix_seed = True
+detrend_price = True
 train_fraction = .8
 false_criterion = None
 batch_size = 30
 lstm_logger_name = 'lstm_model_log.csv'
 log_sep = ',' # log value separators
+save_model = True
 ########################################################
 '''
 provide argv = [region, training_epochs, ensemble_bool]
 '''
 
 
-def build_and_train_LSTM(region, train_fraction, false_criterion, EPOCHS):
+def build_and_train_LSTM(region, train_fraction, detrend_price, false_criterion, EPOCHS):
     truth_criterion = tc_dict[region]
     model = LSTM.LSTM_Model(region,
                             truth_criterion,
                             lstm_features,
                             train_fraction,
+                            detrend_price=detrend_price,
                             false_criterion=false_criterion,
                             normalize=False,
                             test_on_full_set=False,
                             fix_seed=fix_seed
                             )
     tr_hash = model.training_set_hash
+    print(tr_hash)
     model.build_network()
     model.extract_features()
     model.train(EPOCHS, batch_size)
     model.evaluate_model()
+    if save_model:
+        model.save_model()
     t_dict = model.predict()
     n_train = model.data.train.n
     n_test = model.data.test.n
@@ -141,7 +148,12 @@ else:
 
 timer = -1 * time.perf_counter()
 t_dict, n_train, n_test, tr_hash = build_and_train_LSTM(
-    region, train_fraction,  false_criterion=None, EPOCHS=epochs)
+    region, 
+    train_fraction, 
+    detrend_price=detrend_price, 
+    false_criterion=None, 
+    EPOCHS=epochs
+)
 timer += time.perf_counter()
 timer = round(timer,1)
 

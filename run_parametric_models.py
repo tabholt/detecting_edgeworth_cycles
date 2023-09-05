@@ -38,7 +38,7 @@ fix_seed = True
 train_fraction = .8
 false_criterion = None
 parametric_logger_name = 'parametric_model_log.csv'
-log_sep = ','
+log_sep = ',' # log value separators
 ########################################################
 '''
 provide argv = [region, method]

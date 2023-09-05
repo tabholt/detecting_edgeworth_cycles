@@ -32,6 +32,7 @@ train_fraction = .8
 false_criterion = None
 rf_logger_name = 'random_forest_model_log.csv'
 log_sep = ',' # log value separators
+save_model = True
 ########################################################
 # argv = [region] in {de, nsw, wa}
 
@@ -43,9 +44,11 @@ def build_and_train_RF(region, train_fraction, false_criterion):
     tr_hash = rf.training_set_hash
     rf.extract_features()
     rf.fit_model()
+    if save_model:
+        rf.save_model()
+    t_dict = rf.test_model()
     n_train = rf.data.train.n
     n_test = rf.data.test.n
-    t_dict = rf.test_model()
     return t_dict, n_train, n_test, tr_hash
 
 

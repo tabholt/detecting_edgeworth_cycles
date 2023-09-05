@@ -58,6 +58,10 @@ class RF_Model(object):
     @property
     def predictions(self):
         return self.model.predict(self.X_te)
+    
+    @property
+    def network(self):
+        return self.model
 
     def make_test_set_100_pct(self):
         print('Converting test set to 100 percent sample...')
@@ -114,8 +118,8 @@ class RF_Model(object):
         return truth_dict
 
     def save_model(self):
-        print('saving rf model...\n')
         path = f'{self.saved_network_dir}{self.region}/{self.training_set_hash}/'
+        print(f'saving rf model to: {path}\n')
         os.makedirs(path)
         with open(path + 'RF_Model.pkl', 'wb') as f:
             pickle.dump(self, f, pickle.HIGHEST_PROTOCOL)
