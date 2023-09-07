@@ -31,6 +31,44 @@ import pickle
 
 
 class LSTM_Model(object):
+    '''
+    LSTM-based machine learning model for time-series data classification.
+
+    This class represents an LSTM (Long Short-Term Memory) neural network model
+    used for classification tasks on time-series data. It includes methods for
+    building the network, training it, evaluating its performance, and making
+    predictions.
+
+    Args:
+        region (str): The region associated with the dataset.
+        truth_criterion (str): The truth criterion for labeling data.
+        feature_list (list): List of feature names for model input.
+        train_frac (float): Fraction of the data used for training.
+        detrend_price (bool): Whether to detrend the price data.
+        false_criterion (str): Optional criterion for negative class labeling.
+        normalize (bool): Whether to normalize the input features.
+        test_on_full_set (bool): Whether to use the full dataset for testing.
+        fix_seed (bool): Whether to fix random seed for reproducibility.
+
+    Properties:
+        training_set_hash: Returns the hash of the training dataset.
+        testing_set_hash: Returns the hash of the testing dataset.
+        accuracy: Returns the accuracy of the model on the test data.
+        predictions: Returns the binary predictions made by the model.
+
+    Methods:
+        build_network: Creates and compiles the LSTM neural network.
+        extract_features: Extracts input features from the dataset.
+        make_test_set_100_pct: Converts the test set to a 100% sample.
+        build_X: Builds the input feature tensor (X).
+        normalize_X: Normalizes input features.
+        load_pretrained_network: Loads a pretrained model.
+        save_network: Saves the current model to a specified directory.
+        save_model: Saves the entire model object to a file.
+        train: Trains the model on the training dataset.
+        evaluate_model: Evaluates the model's performance on the test data.
+        predict: Makes predictions on the test data.
+    '''
     def __init__(self, region, truth_criterion, feature_list, train_frac, detrend_price=True, false_criterion=None, normalize=False, test_on_full_set=True, fix_seed=True):
         self.data = Model_Container(
             region, truth_criterion, train_frac, false_criterion, test_on_full_set, fix_seed)

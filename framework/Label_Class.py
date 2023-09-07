@@ -43,6 +43,35 @@ def load_label_set(label_db_path):
 
 
 class Label_DB(dict):
+    '''
+    A custom dictionary-like class for managing and analyzing label data.
+
+    This class extends the built-in Python dictionary and provides methods
+    for loading, manipulating, and analyzing label data stored as Label objects.
+    
+    Attributes:
+        region (str): The region associated with the labels in the database.
+                      Can be one of {'germany', 'nsw', 'wa'}.
+    
+    Methods:
+        set_uuids(self): Assigns UUIDs to all Label objects in the database.
+        
+        set_region(self): Sets the region attribute based on the first Label's region.
+        
+        get_train_test_sets(self, train_frac=1, shuffle=True, seed=42):
+            Splits the Label objects into training and test sets.
+
+        print_labels_statistics(self): Prints statistics about the distribution of labels.
+
+        print_label_counts(self): Prints counts of different label types.
+
+        plot_sample(self, n=10, price_type=None): Plots a sample of Label objects.
+
+        export_to_csv(self, file_suffix): Exports the data to CSV files.
+
+        export_sta_info_to_csv(self, filename): Exports station information to a CSV file.
+
+    '''
     def set_uuids(self):
         for key in self.keys():
             self[key].uuid = str(key)
@@ -175,6 +204,45 @@ class Label_DB(dict):
 
 
 class Label(object):
+    '''
+    A class for representing label data associated with a specific observation.
+
+    This class stores various attributes related to label data, such as human labels,
+    price data, location information, and more, for a specific observation.
+
+    Attributes:
+        human_labels (numpy.ndarray): An array of human labels associated with the observation.
+        price (numpy.ndarray): An array of price data.
+        detrended_price (numpy.ndarray): An array of detrended price data.
+        start_date (datetime.date): The start date of the observation.
+        days (int): The number of days in the observation.
+        post_code (str): The postal code associated with the observation location.
+        geotag (tuple): A tuple of latitude and longitude coordinates (floats).
+        region (str): The region associated with the observation location.
+                     Can be one of {'germany', 'nsw', 'wa'}.
+        brand (str): The brand associated with the observation.
+        uuid (str): A unique identifier for the observation.
+
+    Properties:
+        default_data: Returns the default data (detrended_price).
+        default_data_name: Returns the name of the default data ('detrended_price').
+        units: Returns the units of the data ('cents/L').
+        avg_rating: Returns the average human label rating.
+        quarter: Returns the quarter of the year based on the start date.
+        year: Returns the year based on the start date.
+        delta_price: Returns the price differences between consecutive days.
+        num_cycling_labels: Returns the count of labels indicating cycling events.
+        num_non_cycling_labels: Returns the count of labels indicating non-cycling events.
+
+    Methods:
+        series_interface(self, series_name): Accesses different time series data.
+        cycling_binary_interface(self, criterion): Computes cycling-related binary criteria.
+        get_lombscargle(self): Calculates Lomb-Scargle periodogram.
+        get_fft(self): Calculates Fast Fourier Transform.
+        plot(self, price_type=None, verbosity=1): Plots the observation's data.
+        plot_w_fft_lombscargle(self, price_type=None): Plots data with FFT and Lomb-Scargle.
+
+    '''
     def __init__(self):
         self.human_labels = None  # np.ndarray of human labels {0, 0.5, 1}
         self.price = None  # np.ndarray

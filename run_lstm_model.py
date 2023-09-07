@@ -21,6 +21,12 @@ Command Line Arguments:
         0 will give basic model, 1 will give ensemble model
 
         
+Note:
+    - Trained model can be saved, after training by setting parameter:
+      save_model = True. In this case you should note the training set
+      hash (tsh) of the saved model for future reference. 
+      
+
 Output:
     - Will print TensorFlow data to the terminal as well as a prediction truth
       table once training is complete.

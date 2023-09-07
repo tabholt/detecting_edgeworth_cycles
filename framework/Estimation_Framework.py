@@ -234,6 +234,44 @@ def log_l(truth_array, Lambda_array):
 
 
 class Model(object):
+    '''
+    Model for handling labeled observations and feature evaluation.
+
+    This class represents a model for working with labeled observations. It
+    provides methods for evaluating features, calculating various metrics,
+    and managing observations.
+
+    Args:
+        obs_set (list of Label): List of labeled observations.
+        truth_criterion (str): The truth criterion for labeling observations.
+        region (str, optional): The region associated with the dataset.
+
+    Properties:
+        obs_set_hash: Returns the hash identifier for the observation set.
+        uuid_list: Returns a list of UUIDs of observations.
+        n: Returns the number of observations in the set.
+        detrended_price_array: Returns a 2D array of detrended prices.
+        delta_price_array: Returns a 2D array of delta prices.
+        LS_array: Returns a 2D array of Lomb-Scargle periodograms.
+        MBPI_theta1_star: Returns theta1_star for MBPI method.
+        method_name_dict: Returns a dictionary of method names.
+        method_eval_dict: Returns a dictionary of method evaluation functions.
+        method_g_dict: Returns a dictionary of method g-functions.
+        method_base_dict: Returns a dictionary of base methods.
+
+    Methods:
+        calc_method_array: Calculates evaluation arrays for given methods.
+        evaluate_external_data: Evaluates methods on external data.
+        get_truth_array: Retrieves ground truth labels.
+        setup_LL_func: Sets up a log-likelihood function for optimization.
+        MAGS: Memoized Adaptive Grid Search for optimization.
+        evaluate_and_print_method: Evaluates and prints method performance.
+        evaluate_theta: Evaluates a method's performance for a given theta.
+        eval_and_print_LL_func: Evaluates and prints log-likelihood functions.
+        print_truth_table: Prints a truth table summarizing model performance.
+        evaluate_truth: Evaluates the truth against evaluations.
+        Various g-functions and evaluation methods for specific methods.
+    '''
     def __init__(self, obs_set, truth_criterion, region=''):
         self.obs_set = obs_set  # list of Label objects
         self.truth_criterion = truth_criterion  # string

@@ -11,7 +11,13 @@ To Use:
 Command Line Arguments:
     region : in {'de', 'nsw', 'wa'} - What region you would like to run an RF model for
 
-        
+    
+Note:
+    - Trained model can be saved, after training by setting parameter:
+      save_model = True. In this case you should note the training set
+      hash (tsh) of the saved model for future reference. 
+
+         
 Output:
     - Will print a prediction truth table to terminal once training complete.
     - Save accuracy results to the named logfile.

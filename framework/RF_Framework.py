@@ -28,6 +28,40 @@ np.set_printoptions(suppress=True)  # supress scientific notation
 
 
 class RF_Model(object):
+    '''
+    Random Forest Model for classification tasks.
+
+    This class represents a Random Forest model for binary classification tasks.
+    It includes methods for training, testing, and evaluating the model's
+    performance.
+
+    Args:
+        region (str): The region associated with the dataset.
+        truth_criterion (str): The truth criterion for labeling data.
+        feature_list (list of str): List of features to use in the model.
+        train_frac (float): Fraction of the data used for training.
+        false_criterion (str): Optional criterion for false class labeling.
+        test_on_full_set (bool): Whether to use the full dataset for testing.
+        fix_seed (bool): Whether to fix random seed for reproducibility.
+
+    Properties:
+        training_set_hash: Returns the hash identifier for the training set.
+        testing_set_hash: Returns the hash identifier for the testing set.
+        accuracy: Returns the accuracy of the model on the testing set.
+        predictions: Returns the model's predictions on the testing set.
+        network: Returns the trained Random Forest model.
+
+    Methods:
+        make_test_set_100_pct: Converts the test set to a 100% sample.
+        extract_features: Extracts features from the dataset.
+        get_features: Retrieves features for either the training or testing set.
+        get_truth: Retrieves the ground truth labels for either set.
+        fit_model: Fits the Random Forest model to the training data.
+        test_model: Tests the model's performance on the testing data.
+        save_model: Saves the trained model to a specified directory.
+        evaluate_truth: Evaluates the model's predictions against ground truth.
+        print_truth_table: Prints a truth table summarizing model performance.
+    '''
     def __init__(self, region, truth_criterion, feature_list, train_frac, false_criterion=None, test_on_full_set=True, fix_seed=True):
         self.data = Model_Container(
             region, truth_criterion, train_frac, false_criterion, test_on_full_set, fix_seed)

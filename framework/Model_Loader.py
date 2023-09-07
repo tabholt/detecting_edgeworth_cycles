@@ -16,10 +16,32 @@ from framework.Estimation_Framework import Model
 
 class Model_Container(object):
     '''
-    false criterion will eliminate all ambiguous observations from both training and test sets
-    to modify this change the code block in self.load_model()
-    '''
+    Container class for managing training and testing datasets and models.
 
+    This class facilitates the loading, management, and splitting of labeled
+    datasets into training and testing sets for machine learning models. It
+    also provides methods for handling ambiguous observations based on truth
+    and false criteria.
+
+    Args:
+        region (str): The region associated with the dataset.
+        truth_criterion (str): The truth criterion for labeling data.
+        train_frac (float): Fraction of the data used for training.
+        false_criterion (str): Optional criterion for false class labeling.
+        test_on_full_set (bool): Whether to use the full dataset for testing.
+        fix_seed (bool): Whether to fix random seed for reproducibility.
+
+    Properties:
+        train: Returns the training dataset.
+        test: Returns the testing dataset, which may be the same as the
+              training dataset for train_frac = 1.
+
+    Methods:
+        load_model: Loads the dataset and creates training and testing models.
+        eliminate_ambiguous_obs: Filters out ambiguous observations based on
+                                  truth and false criteria.
+
+    '''
     def __init__(self, region, truth_criterion, train_frac, false_criterion=None, test_on_full_set=True, fix_seed=True):
         self.train_model = None
         self.test_model = None
