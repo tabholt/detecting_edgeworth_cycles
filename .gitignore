@@ -4,4 +4,4 @@ __pycache__
 *.json
 *.pkl
 pretrained_models/*
-tankerkoenig-data/*
+tankerkoenig-data/
