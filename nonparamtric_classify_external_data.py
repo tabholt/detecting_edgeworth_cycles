@@ -73,7 +73,7 @@ np.set_printoptions(edgeitems=8, precision=4, suppress=True, linewidth=180)
 #################### SET PARAMETERS ####################
 # basic settings (should be updated)
 pretrained_model_tsh = '5e902479bedaf4d15cd967c7d4b8db61' # add hash from a pre-trained model
-external_data_path = 'label_databases/ALL_detrended_price_windows.json'
+external_data_path = 'label_databases/ALL_detrended_price_windows.json' # either json or csv
 model_type = 'lstm_ensemble' # in {'rf', 'lstm_basic', 'lstm_ensemble'}
 region = 'de' # in {'de', 'nsw', 'wa'} the region of the pre-trained model
 results_export_filename = f'{model_type}_external_classification_results.json' # either json or csv

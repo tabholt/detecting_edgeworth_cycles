@@ -33,7 +33,7 @@ To run the code, you must first download (clone) this repository:
 - `run_lstm_model.py` : train and test LSTM models
 - `nonparamtric_classify_external_data.py` : use pre-trained models to classify external data sets using LSTM or Random Forest models
 - `de_rawdata_parse_postal_region.py` : efficiently parse raw [Tankerkoenig](https://tankerkoenig@dev.azure.com/tankerkoenig/tankerkoenig-data/_git/tankerkoenig-data) data into convenient data structures
-- `convert_price_window_json_csv.py` : convert price window data structure files from json to csv format and vice-versa
+- `convert_price_window_json_csv.py` : convert price window data structure files from JSON to CSV format and vice-versa
 
 ### Framework Code (`main/framework` directory)
 - `Estimation_Framework.py` : main code defining the parametric models and feature interfaces
@@ -130,7 +130,7 @@ To train and test parametric models run the script `run_parametric_models.py`
 - arg1 = region in {wa, nsw, de}
 - arg2 = method in {PRNR, MIMD, NMC, MBPI, FT0, FT1, FT2, LS0, LS1, LS2, CS0, CS1, WAVY, all} - if 'all' is passed the the a model will be built, trained, and tested for each method.
 
-Once the model has run, results will be printed to the terminal, and saved in a csv log file called `parametric_model_log.csv`. Running multiple models will append new lines onto this log file.
+Once the model has run, results will be printed to the terminal, and saved in a CSV log file called `parametric_model_log.csv`. Running multiple models will append new lines onto this log file.
 
 **Correspondences with Methods in Paper**
 
@@ -155,7 +155,9 @@ Once the model has run, results will be printed to the terminal, and saved in a 
 To train and test Random Forest models run the script `run_rf_model.py`
 - arg1 = region in {wa, nsw, de}
 
-Once the model has run, results will be printed to the terminal, and saved in a csv log file called `random_forest_model_log.csv`. Running multiple times will append new lines onto this log file.
+Once the model has run, results will be printed to the terminal, and saved in a CSV log file called `random_forest_model_log.csv`. Running multiple times will append new lines onto this log file.
+
+**Advanced:** To save a model once it has been trained, set variable `save_model = True` in the parameters section of the python script.
 
 ### Running LSTM models
 To train and test LSTM models run the script `run_lstm_model.py`
@@ -167,5 +169,51 @@ A training epoch is a single run through the data set. Model fit will increase w
 
 The ensemble model bool indicates whether to use ensemble LSTM model or basic one. 0 will give basic model, 1 will give ensemble model.
 
-Once the model has run, results will be printed to the terminal, and saved in a csv log file called `lstm_model_log.csv`. Running multiple times will append new lines onto this log file.
+Once the model has run, results will be printed to the terminal, and saved in a CSV log file called `lstm_model_log.csv`. Running multiple times will append new lines onto this log file.
 
+**Advanced:** To save a model once it has been trained, set variable `save_model = True` in the parameters section of the python script.
+
+### Use pre-trained models to classify external data (Advanced)
+To use previously trained and saved models to classify a data set contained in a JSON or CSV file:
+
+1. Ensure that the dataset has the same format as the price window files either in CSV or JSON (ie. like `label_databases/german_label_db.json`). Not all data fields need to be present, but there must at least be price series and a unique identifier column for the observations. For example of CSV format, see output of `convert_price_window_json_csv.py`.
+2. Modify basic settings in set parameters section of the `nonparamtric_classify_external_data.py` script. You will need to insert:
+   - training set hash (see logs) from RF or LSTM model that you previously trained and saved
+   - the path and filename to your external data file in JSON or CSV.
+   - the type of model in {'rf', 'lstm_basic', 'lstm_ensemble'}
+   - the filename where you wish to save the results (either CSV or JSON extensions accepted)
+3. Run script using `python nonparamtric_classify_external_data.py`
+4. Classification results can be found in the chosen file
+
+
+### Parse Tankerkoenig DE raw data into convenient data structures
+To efficiently parse the [Tankerkoenig](https://tankerkoenig@dev.azure.com/tankerkoenig/tankerkoenig-data/_git/tankerkoenig-data) raw data into easy to use data structures:
+1. Download the tankerkoenig data set using:
+   - ``git clone https://tankerkoenig@dev.azure.com/tankerkoenig/tankerkoenig-data/_git/tankerkoenig-data``
+- Run the script `de_rawdata_parse_postal_region.py`
+  - arg1 = postal region in {0...9, all}
+
+German postal region is defined as the region represented by the set of postal codes starting with the specified digit. More information can be found at this [Wikipedia article](https://en.wikipedia.org/wiki/Postal_codes_in_Germany). Passing the argument 'all' will parse all regions from 0 to 9.
+
+The output of this script will be found by default in the folder `de_databases`. There will be three types of file in here:
+1. Station Info Database: This is the file that contains only the header data for the various gas stations. No price data is included in this file, to make it small and fast to load. This file is available by default in both JSON as well as serialized Python pkl format. 
+2. Price Station Database: These files contain a serialized dictionary of station objects (similar to the station info database) that contains a list of price observations and timestamps of all of the price reports from the given station. These databases are partitioned into postal regions.
+3. Price Windows Files: These JSON files contain series of quarterly observations of daily average prices for each station in the given postal region. This 90-day price window data structure is the basis of the Detecting Edgeworth Cycles paper.
+
+**Note:**
+- Processing a region should take about 20-50 minutes, thus fully processing all regions will take several hours.
+- This step will require at least 8GB of RAM memory, but 16GB or more is recommended.
+- The script is preconfigured to expect the folder `tankerkoenig-data` in the main directory. This can be configured using the `framework/de_data_parsing/parameters.py dirs['raw_german_data_folder']` variable.
+- The script will ask before overwriting data.
+
+### Convert JSON price window files to CSV and vice-versa
+Price window data files as produced by the `de_rawdata_parse_postal_region.py` can be converted into CSV files using the script `convert_price_window_json_csv.py`. Conversion can also be performed on user generated data between CSV and JSON formats, provided the data conforms to the same structure as the base provided data. 
+
+To use the converter run the script `convert_price_window_json_csv.py`
+  - arg1 = input_filename (str)
+
+The name of the input file must include a path and be either a JSON or CSV file.
+
+Output:
+  - For JSON input, it converts the data to a CSV file with the same name.
+  - For CSV input, it converts the data to a JSON file with the same name.
