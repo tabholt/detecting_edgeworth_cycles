@@ -173,6 +173,8 @@ Once the model has run, results will be printed to the terminal, and saved in a 
 
 **Advanced:** To save a model once it has been trained, set variable `save_model = True` in the parameters section of the python script.
 
+**Advanced:** Results from Figure 2 - Gains from Additional Data, can be simulated by changing the variable `train_fraction` in the parameters of any of the LSTM, RF, or Parametric models. This will modify the proportion of the data set that is used to train the models.
+
 ### Use pre-trained models to classify external data (Advanced)
 To use previously trained and saved models to classify a data set contained in a JSON or CSV file:
 
@@ -184,6 +186,8 @@ To use previously trained and saved models to classify a data set contained in a
    - the filename where you wish to save the results (either CSV or JSON extensions accepted)
 3. Run script using `python nonparamtric_classify_external_data.py`
 4. Classification results can be found in the chosen file
+
+**Note:** The performance of the models will generally be negatively affected by biases or other features of the external data that were not also in the training data. Proceed with caution when using this feature. 
 
 
 ### Parse Tankerkoenig DE raw data into convenient data structures
