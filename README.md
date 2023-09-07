@@ -1,7 +1,11 @@
 # Detecting Edgeworth Cycles
-Replication package for paper "[Detecting Edgeworth Cycles](https://ssrn.com/abstract=3934367)" by Timothy Holt, Mitsuru Igami, and Simon Scheidegger (2023).
+Replication package for paper "[Detecting Edgeworth Cycles](https://ssrn.com/abstract=3934367)" by Timothy Holt, Mitsuru Igami, and Simon Scheidegger (2023). We hope that this repository can also serve as a "sandbox" for researchers interested in studying gasoline price data in more detail by providing various tools to assist in the data analysis process.
 
-The scripts in this repository allow the user to test the various parametric, random forest, and LSTM models that were detailed in the paper, and plot random samples of the labeled data. 
+The scripts in this repository allow the user to:
+- Test the various parametric, random forest, and LSTM models that were detailed in the paper.
+- Plot random samples of the labeled data. 
+- Use the non-parametric machine learning models to classify external data.
+- Efficiently parse the [Tankerkoenig](https://tankerkoenig@dev.azure.com/tankerkoenig/tankerkoenig-data/_git/tankerkoenig-data) German retail gasoline price data into easily usable data structures including CSV.
 
 ## Cloning the Repository
 To run the code, you must first download (clone) this repository:
@@ -22,13 +26,16 @@ To run the code, you must first download (clone) this repository:
 
 ## Package Contents
 
-### User Scripts (main directory)
+### User Scripts (`main` directory)
 - `plot_sample.py` : plot a random sample of data from a given region
 - `run_parametric_models.py` : train and test parametric models
 - `run_rf_model.py` : train and test random forest model
 - `run_lstm_model.py` : train and test LSTM models
+- `nonparamtric_classify_external_data.py` : use pre-trained models to classify external data sets using LSTM or Random Forest models
+- `de_rawdata_parse_postal_region.py` : efficiently parse raw [Tankerkoenig](https://tankerkoenig@dev.azure.com/tankerkoenig/tankerkoenig-data/_git/tankerkoenig-data) data into convenient data structures
+- `convert_price_window_json_csv.py` : convert price window data structure files from json to csv format and vice-versa
 
-### Framework Code (main/framework directory)
+### Framework Code (`main/framework` directory)
 - `Estimation_Framework.py` : main code defining the parametric models and feature interfaces
 - `RF_Framework.py` : main code defining the random forest models
 - `LSTM_Framework.py` : main code defining the LSTM models
@@ -36,12 +43,28 @@ To run the code, you must first download (clone) this repository:
 - `Model_Loader.py` : a convenient interface for loading data and splitting into training and test sets
 - `model_settings.py` : dictionaries and lists for some important default parameters to make the framework function
 
-### Data Files (main/label_databases direcotry)
+### DE Raw Data Parsing Framework Code (`main/framework/de_data_parsing` directory)
+- `sta_info_functions.py` : functions to parse station info files (excluding prices)
+- `price_db_functions.py` : functions to parse station price files
+- `observation_windows_functions.py` : functions to create station window observations of quarterly average daily prices
+- `Station_Class.py` : data structure representing a single gas station with all relevant data
+- `Timer_Utility.py` : convenient utility for recording timing and performance in Python code
+- `parameters.py` : set of default parameters for parsing german raw data
+
+### Data Files (`main/label_databases` direcotry)
 - `german_label_db.json` : data from Germany
 - `nsw_label_db.json` : data from New South Wales
 - `wa_label_db.json` : data from Western Australia
-
+  
 **Note:** data files must be unzipped after downloading repository (see Running the Scripts section for details)
+
+### Downloadable Data Files (not included in directory)
+- tankerkoenig German raw data (updated daily): 
+  - `git clone https://tankerkoenig@dev.azure.com/tankerkoenig/tankerkoenig-data/_git/tankerkoenig-data`
+- Detrended labeled data for all DE price windows from Q4-2014 to Q4-2020 (inclusive):
+  - `cd labeled_databases`
+  - `curl https://drive.switch.ch/index.php/s/pwq1Sw0RssyDuUC/download --output ALL_detrended_price_windows.json` 
+  - Only about 10 percent of observations contain human labels. {1: cycling, 0.5: maybe cycling, 0: not cycling}
 
 ## Requirements
 This code requires Python 3.8 or later, with the following packages and their associated dependencies:
@@ -145,3 +168,4 @@ A training epoch is a single run through the data set. Model fit will increase w
 The ensemble model bool indicates whether to use ensemble LSTM model or basic one. 0 will give basic model, 1 will give ensemble model.
 
 Once the model has run, results will be printed to the terminal, and saved in a csv log file called `lstm_model_log.csv`. Running multiple times will append new lines onto this log file.
+
