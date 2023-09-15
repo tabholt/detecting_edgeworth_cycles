@@ -84,6 +84,7 @@ class LSTM_Model(object):
         self.normalize = normalize
         self.saved_network_dir = join(os.getcwd(), 'pretrained_models', 'lstm_models')
     
+    
     @property
     def training_set_hash(self):
         return self.data.train.obs_set_hash
@@ -202,17 +203,17 @@ class LSTM_Model(object):
         return X
 
     def load_pretrained_network(self):
-        fname = self.saved_network_dir
+        path = self.saved_network_dir
         if self.feature_list == []:
-            fname += 'basic/'
+            path = join(path, 'basic', self.region, self.training_set_hash)
         else:
-            fname += 'ensemble/'
-        fname += f'{self.region}/{self.training_set_hash}/network'
+            path = join(path, 'ensemble', self.region, self.training_set_hash)
+        fname = join(path, 'tf_network.keras')
         print(f'loading TF network: {fname}')
         os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # or any {'0', '1', '2'}
         self.network = tf.keras.models.load_model(fname)
 
-    def save_network(self):
+    def save_network(self, path):
         '''
         TF_CPP_MIN_LOG_LEVEL:
             0 = all messages are logged (default behavior)
@@ -220,38 +221,25 @@ class LSTM_Model(object):
             2 = INFO and WARNING messages are not printed
             3 = INFO, WARNING, and ERROR messages are not printed
         '''
-        path = self.saved_network_dir
-        if self.feature_list == []:
-            path = join(path, 'basic', self.region, self.training_set_hash, 'network')
-
-            # path += f'basic/{self.region}/{self.training_set_hash}/network'
-        else:
-            path = join(path, 'ensemble', self.region, self.training_set_hash, 'network')
-            # path += f'ensemble/{self.region}/{self.training_set_hash}/network'
-        # path = os.getcwd()
         print(f'saving lstm model to: {path}\n')
         os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # or any {'0', '1', '2'}
-        filename = join(path,'lstm_network.keras')
-        self.network.save(filename)
+        self.network.save(join(path, 'tf_network.keras'))
 
     def save_model(self):
         print('Saving model...')
         path = self.saved_network_dir
         if self.feature_list == []:
-            # path += f'basic/{self.region}/{self.training_set_hash}/'
             path = join(path, 'basic', self.region, self.training_set_hash)
-            # path += f'basic/{self.region}/{self.training_set_hash}/'
         else:
             path = join(path, 'ensemble', self.region, self.training_set_hash)
-            # path += f'ensemble/{self.region}/{self.training_set_hash}/'
         if not os.path.exists(path):
             os.makedirs(path)
         temp = self.network
         self.network = None
-        with open(path + 'LSTM_Model.pkl', 'wb') as f:
+        with open(join(path, 'LSTM_Model.pkl'), 'wb') as f:
             pickle.dump(self, f, pickle.HIGHEST_PROTOCOL)
         self.network = temp
-        self.save_network()
+        self.save_network(path)
 
     def train(self, epochs, batch_size):
         print('Training LSTM...')

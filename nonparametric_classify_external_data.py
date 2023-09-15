@@ -72,9 +72,9 @@ np.set_printoptions(edgeitems=8, precision=4, suppress=True, linewidth=180)
 
 #################### SET PARAMETERS ####################
 # basic settings (should be updated)
-pretrained_model_tsh = '5e902479bedaf4d15cd967c7d4b8db61' # add hash from a pre-trained model
+pretrained_model_tsh = '32a0cdf61a24144c4b83df822a4302da' # add hash from a pre-trained model
 external_data_path = 'label_databases/ALL_detrended_price_windows.json' # either json or csv
-model_type = 'lstm_ensemble' # in {'rf', 'lstm_basic', 'lstm_ensemble'}
+model_type = 'lstm_basic' # in {'rf', 'lstm_basic', 'lstm_ensemble'}
 region = 'de' # in {'de', 'nsw', 'wa'} the region of the pre-trained model
 results_export_filename = f'{model_type}_external_classification_results.json' # either json or csv
 
@@ -102,7 +102,8 @@ def load_non_param_model(model_type, region, tsh):
     if not os.path.exists(pkl_file):
         if 'lstm' in model_type:
             model_type = 'lstm'
-        raise Exception(f'Pre-trained model {pkl_file} does not exist. See run_{model_type}_model.py to train and save a model.')
+        missing_model = f'Pre-trained model {pkl_file} does not exist. See run_{model_type}_model.py to train and save a model.'
+        raise Exception(missing_model)
     with open(pkl_file, 'rb') as pickle_file:
         model = pickle.load(pickle_file)
     if model_type in ['lstm_ensemble', 'lstm_basic']:
