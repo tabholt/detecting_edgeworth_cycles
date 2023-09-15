@@ -1,4 +1,7 @@
 # Detecting Edgeworth Cycles
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7950794.svg)](https://zenodo.org/record/7950794)
+
 Replication package for paper "[Detecting Edgeworth Cycles](https://ssrn.com/abstract=3934367)" by Timothy Holt, Mitsuru Igami, and Simon Scheidegger (2023). We hope that this repository can also serve as a "sandbox" for researchers interested in studying gasoline price data in more detail by providing various tools to assist in the data analysis process.
 
 The scripts in this repository allow the user to:
@@ -6,6 +9,23 @@ The scripts in this repository allow the user to:
 - Plot random samples of the labeled data. 
 - Use the non-parametric machine learning models to classify external data.
 - Efficiently parse the [Tankerkoenig](https://tankerkoenig@dev.azure.com/tankerkoenig/tankerkoenig-data/_git/tankerkoenig-data) German retail gasoline price data into easily usable data structures including CSV.
+
+## Citation
+
+Please cite "[Detecting Edgeworth Cycles](https://ssrn.com/abstract=3934367)" in your publications if this resource helps your research or teaching:
+
+```
+@article{holt2023detecting,
+  title={Detecting Edgeworth Cycles},
+  author={Holt, Timothy and Igami, Mitsuru and Scheidegger, Simon},
+  year={2023},
+  month={May},
+  day={19},
+  journal={SSRN},
+  doi={10.2139/ssrn.3934367},
+  url={https://ssrn.com/abstract=3934367}
+}
+```
 
 ## Cloning the Repository
 To run the code, you must first download (clone) this repository:
