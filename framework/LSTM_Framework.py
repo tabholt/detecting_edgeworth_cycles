@@ -105,6 +105,14 @@ class LSTM_Model(object):
         evals_te = tf.where(evals_te <= 0.5, 0, 1)
         return evals_te
 
+    @property
+    def network_input_shape(self):
+        if len(self.feature_list) > 0:
+            n_feats = len(self.feature_list) + 2
+        else:
+            n_feats = 1
+        return (90, n_feats)
+
     def build_network(self):
         dropout_val = 0.5
         act_fun = 'tanh'
@@ -112,7 +120,9 @@ class LSTM_Model(object):
             learning_rate=.0005)  # default=.001
         model = tf.keras.models.Sequential(name=self.region)
         model.add(tf.keras.layers.LSTM(
-            units=16, activation=act_fun, return_sequences=True))
+            units=16, activation=act_fun, return_sequences=True, 
+            # input_shape=self.network_input_shape
+            ))
         model.add(tf.keras.layers.Dropout(dropout_val))
         model.add(tf.keras.layers.LSTM(
             units=8, activation=act_fun, return_sequences=True))
@@ -199,7 +209,7 @@ class LSTM_Model(object):
             fname += 'ensemble/'
         fname += f'{self.region}/{self.training_set_hash}/network'
         print(f'loading TF network: {fname}')
-        os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # or any {'0', '1', '2'}
+        os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # or any {'0', '1', '2'}
         self.network = tf.keras.models.load_model(fname)
 
     def save_network(self):
@@ -221,7 +231,8 @@ class LSTM_Model(object):
         # path = os.getcwd()
         print(f'saving lstm model to: {path}\n')
         os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # or any {'0', '1', '2'}
-        self.network.save(path)
+        filename = join(path,'lstm_network.keras')
+        self.network.save(filename)
 
     def save_model(self):
         print('Saving model...')

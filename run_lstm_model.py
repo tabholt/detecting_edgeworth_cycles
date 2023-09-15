@@ -50,7 +50,7 @@ false_criterion = None
 batch_size = 30
 lstm_logger_name = 'lstm_model_log.csv'
 log_sep = ',' # log value separators
-save_model = False
+save_model = True
 ########################################################
 '''
 provide argv = [region, training_epochs, ensemble_bool]
@@ -74,6 +74,7 @@ def build_and_train_LSTM(region, train_fraction, detrend_price, false_criterion,
     model.build_network()
     model.extract_features()
     model.train(EPOCHS, batch_size)
+    # weights = model.network.get_weights()
     model.evaluate_model()
     if save_model:
         model.save_model()
