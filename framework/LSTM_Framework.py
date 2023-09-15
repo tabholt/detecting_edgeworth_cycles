@@ -28,7 +28,7 @@ import time
 import random
 import os
 import pickle
-
+from os.path import join
 
 class LSTM_Model(object):
     '''
@@ -82,8 +82,8 @@ class LSTM_Model(object):
         self.y_tr = None
         self.y_te = None
         self.normalize = normalize
-        self.saved_network_dir = 'pretrained_models/lstm_models/'
-
+        self.saved_network_dir = join(os.getcwd(), 'pretrained_models', 'lstm_models')
+    
     @property
     def training_set_hash(self):
         return self.data.train.obs_set_hash
@@ -212,9 +212,13 @@ class LSTM_Model(object):
         '''
         path = self.saved_network_dir
         if self.feature_list == []:
-            path += f'basic/{self.region}/{self.training_set_hash}/network'
+            path = join(path, 'basic', self.region, self.training_set_hash, 'network')
+
+            # path += f'basic/{self.region}/{self.training_set_hash}/network'
         else:
-            path += f'ensemble/{self.region}/{self.training_set_hash}/network'
+            path = join(path, 'ensemble', self.region, self.training_set_hash, 'network')
+            # path += f'ensemble/{self.region}/{self.training_set_hash}/network'
+        # path = os.getcwd()
         print(f'saving lstm model to: {path}\n')
         os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # or any {'0', '1', '2'}
         self.network.save(path)
@@ -223,10 +227,14 @@ class LSTM_Model(object):
         print('Saving model...')
         path = self.saved_network_dir
         if self.feature_list == []:
-            path += f'basic/{self.region}/{self.training_set_hash}/'
+            # path += f'basic/{self.region}/{self.training_set_hash}/'
+            path = join(path, 'basic', self.region, self.training_set_hash)
+            # path += f'basic/{self.region}/{self.training_set_hash}/'
         else:
-            path += f'ensemble/{self.region}/{self.training_set_hash}/'
-        os.makedirs(path)
+            path = join(path, 'ensemble', self.region, self.training_set_hash)
+            # path += f'ensemble/{self.region}/{self.training_set_hash}/'
+        if not os.path.exists(path):
+            os.makedirs(path)
         temp = self.network
         self.network = None
         with open(path + 'LSTM_Model.pkl', 'wb') as f:
