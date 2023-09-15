@@ -100,7 +100,9 @@ def load_non_param_model(model_type, region, tsh):
         path = pretrained_models_root + f'lstm_models/ensemble/{region}/{tsh}/'
         pkl_file = path + 'LSTM_Model.pkl'
     if not os.path.exists(pkl_file):
-        raise Exception(f'Pre-trained model {pkl_file} does not exist. See run_lstm_model.py to train and save a model.')
+        if 'lstm' in model_type:
+            model_type = 'lstm'
+        raise Exception(f'Pre-trained model {pkl_file} does not exist. See run_{model_type}_model.py to train and save a model.')
     with open(pkl_file, 'rb') as pickle_file:
         model = pickle.load(pickle_file)
     if model_type in ['lstm_ensemble', 'lstm_basic']:
@@ -218,7 +220,7 @@ def main():
             )
     else:
         raise Exception('Incompatible file type. Must be json or csv.')
-    model = load_non_param_model(model_type, 'de', pretrained_model_tsh)
+    model = load_non_param_model(model_type, region, pretrained_model_tsh)
     if model_type == 'rf':
         X = build_X_rf(model, price_matrix)
     elif model_type in {'lstm_ensemble', 'lstm_basic'}:

@@ -43,7 +43,6 @@ from framework.model_settings import full_region_names
 from framework.model_settings import lstm_features
 
 #################### SET PARAMETERS ####################
-# fix_seed = True
 fix_seed = True
 detrend_price = True
 train_fraction = .8

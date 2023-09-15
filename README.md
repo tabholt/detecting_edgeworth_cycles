@@ -16,7 +16,7 @@ To run the code, you must first download (clone) this repository:
         
         git clone https://github.com/tabholt/detecting_edgeworth_cycles.git
 
-    **Note:** This command may not work on Windows, unless you have previously installed git. In this case, you may download this repository from the GitHub webpage and then unzip it in your desired directory. 
+    **Note:** This command may not work on Windows, unless you have previously installed git. In this case, you may either [install Git](https://github.com/git-guides/install-git) or download this repository from the GitHub webpage and then unzip it in your desired directory. 
 
 3. Navigate into the repository using:
 
@@ -65,6 +65,7 @@ To run the code, you must first download (clone) this repository:
   - `cd labeled_databases`
   - `curl https://drive.switch.ch/index.php/s/pwq1Sw0RssyDuUC/download --output ALL_detrended_price_windows.json` 
   - Only about 10 percent of observations contain human labels. {1: cycling, 0.5: maybe cycling, 0: not cycling}
+  **Note:** These commands may not work on Windows. In this case, you may either [install Git](https://github.com/git-guides/install-git) and/or [install curl](https://developer.zendesk.com/documentation/api-basics/getting-started/installing-and-using-curl/#windows) or download these repositories from the following links: [tankerkoenig](https://dev.azure.com/tankerkoenig/tankerkoenig-data/_git/tankerkoenig-data) [detrended_price_windows](https://drive.switch.ch/index.php/s/pwq1Sw0RssyDuUC/download) and then unzip it in your desired directory. 
 
 ## Requirements
 This code requires Python 3.8 or later, with the following packages and their associated dependencies:

@@ -203,13 +203,20 @@ class LSTM_Model(object):
         self.network = tf.keras.models.load_model(fname)
 
     def save_network(self):
+        '''
+        TF_CPP_MIN_LOG_LEVEL:
+            0 = all messages are logged (default behavior)
+            1 = INFO messages are not printed
+            2 = INFO and WARNING messages are not printed
+            3 = INFO, WARNING, and ERROR messages are not printed
+        '''
         path = self.saved_network_dir
         if self.feature_list == []:
             path += f'basic/{self.region}/{self.training_set_hash}/network'
         else:
             path += f'ensemble/{self.region}/{self.training_set_hash}/network'
         print(f'saving lstm model to: {path}\n')
-        os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # or any {'0', '1', '2'}
+        os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # or any {'0', '1', '2'}
         self.network.save(path)
 
     def save_model(self):
