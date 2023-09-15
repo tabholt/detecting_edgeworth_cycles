@@ -38,7 +38,7 @@ train_fraction = .8
 false_criterion = None
 rf_logger_name = 'random_forest_model_log.csv'
 log_sep = ',' # log value separators
-save_model = True
+save_model = False
 ########################################################
 # argv = [region] in {de, nsw, wa}
 
