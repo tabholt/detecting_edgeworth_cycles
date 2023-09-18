@@ -26,6 +26,7 @@ Output:
 import os
 import sys
 import time
+import json
 from framework.Model_Loader import Model_Container
 from framework.model_settings import MAGS_default_domains
 from framework.model_settings import parametric_methods
@@ -39,6 +40,8 @@ train_fraction = .8
 false_criterion = None
 parametric_logger_name = 'parametric_model_log.csv'
 log_sep = ',' # log value separators
+save_model = True
+optimal_thetas_filename = 'pretrained_models/parametric_models/optimal_thetas.json'
 ########################################################
 '''
 provide argv = [region, method]
@@ -68,7 +71,8 @@ resolution = 200
 
 def optimize_and_test_param_model(region, train_fraction, false_criterion, method, domain):
     truth_criterion = tc_dict[region]
-    model = Model_Container(region, truth_criterion, train_fraction, false_criterion=false_criterion,
+    model = Model_Container(region, truth_criterion, train_fraction,
+                            false_criterion=false_criterion,
                             test_on_full_set=False, fix_seed=fix_seed)
     print(f'\nOptimizing {method} parameter...\n')
     theta_star, _, _ = model.train.MAGS(
@@ -107,9 +111,9 @@ def export_accuracy(region, method, truth_criterion, tr_hash, train_frac, truth_
         'FF': truth_dict['FF'],
         'FT': truth_dict['FT'],
         'TF': truth_dict['TF'],
-        'theta_star': theta_star,
         'run_time': run_time,
         'accuracy': perf,
+        'theta_star': theta_star,
     }
     if not os.path.isfile(filename):
         header = ''
@@ -129,6 +133,25 @@ def export_accuracy(region, method, truth_criterion, tr_hash, train_frac, truth_
         f.write(line)
 
 
+def save_theta(region, method, theta_star):
+    '''
+    Saving only consists of exporting the theta-star to a json file.
+    Will overwrite last theta_star for method
+    '''
+    params = {}
+    if os.path.exists(optimal_thetas_filename):
+        with open(optimal_thetas_filename, 'r') as f:
+            params = json.load(f)
+    else:
+        os.makedirs(os.path.dirname(optimal_thetas_filename), exist_ok=True)
+    if region not in params:
+        params[region] = {}
+    params[region][method] = theta_star
+    with open(optimal_thetas_filename, 'w') as f:
+        export_json = json.dumps(params, indent=4)
+        f.write(export_json) 
+
+
 def run_method(method):
     print(f'Running {method} parametric model on {full_region_names[region]} data\n')
 
@@ -137,6 +160,8 @@ def run_method(method):
     timer = -1 * time.perf_counter()
     t_dict, theta_star, n_train, n_test, tr_hash = optimize_and_test_param_model(
         region, train_fraction, false_criterion, method, domain)
+    if save_model:
+        save_theta(region, method, theta_star)
     timer += time.perf_counter()
     timer = round(timer,1)
 
