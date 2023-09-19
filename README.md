@@ -132,6 +132,8 @@ replacing `script_name.py` with the name of your script, and the various arg1, a
 
 **Note:** You must extract the JSON files from the zip file `detecting_edgeworth_cycles/label_databases/label_data_files.zip` before you can run the scripts.
 
+------------
+
 ### Steps to unzip data files
 1. Use your favorite unzipping program to extract the contents of the zipped file.
 2. Ensure that the files: 
@@ -140,12 +142,18 @@ replacing `script_name.py` with the name of your script, and the various arg1, a
    - `wa_label_db.json`
 
     are in the directory `detecting_edgeworth_cycles/label_databases/`
+
+------------
+
 ### Plotting samples of data
 To plot $n$ random samples of data from a given region run the script `plot_sample.py` 
 - arg1 = region in {wa, nsw, de}
 - arg2 = $n$ (positive integer)
 
 **Note:** You will need to close the plot that pops-up in order to see the subsequent plot.
+
+------------
+
 
 ### Running parametric models
 To train and test parametric models run the script `run_parametric_models.py`
@@ -172,6 +180,8 @@ Once the model has run, results will be printed to the terminal, and saved in a 
 | CS1        | alternate Cubic Splines (integral value)                        |
 | WAVY       | number of times detrended price crosses its mean                |
 
+------------
+
 
 ### Running Random Forest models
 To train and test Random Forest models run the script `run_rf_model.py`
@@ -180,6 +190,8 @@ To train and test Random Forest models run the script `run_rf_model.py`
 Once the model has run, results will be printed to the terminal, and saved in a CSV log file called `random_forest_model_log.csv`. Running multiple times will append new lines onto this log file.
 
 **Advanced:** To save a model once it has been trained, set variable `save_model = True` in the parameters section of the python script.
+
+------------
 
 ### Running LSTM models
 To train and test LSTM models run the script `run_lstm_model.py`
@@ -197,17 +209,33 @@ Once the model has run, results will be printed to the terminal, and saved in a 
 
 **Advanced:** Results from Figure 2 - Gains from Additional Data, can be simulated by changing the variable `train_fraction` in the parameters of any of the LSTM, RF, or Parametric models. This will modify the proportion of the data set that is used to train the models.
 
-### Use pre-trained models to classify external data (Advanced)
+------------
+
+### Use parametric models to classify external data (Advanced)
+To use previously trained, optimal theta values to classify a data set contained in a JSON or CSV file:
+
+1. Ensure that the dataset has the same format as the price window files either in CSV or JSON (ie. like `label_databases/german_label_db.json`). Not all data fields need to be present, but there must at least be price series and a unique identifier column for the observations. For example of CSV format, see output of `convert_price_window_json_csv.py`.
+2. Set the `external_data_path` parameter of the `parametric_classify_external_data.py` script to the file containing your data.
+3. Run script using `python parametric_classify_external_data.py`
+   - arg1 = region in {wa, nsw, de}
+   - arg2 = method in {PRNR, MIMD, NMC, MBPI, FT0, FT1, FT2, LS0, LS1, LS2, CS0, CS1, WAVY, all}
+4. Classification results can be found in the specified file
+
+**Note:** The region and method arguments will load the previously found optimal values of parameter $\theta$ for the respective model in the specified region. It will then compute the estimated truth value of the method given the optimal $\theta$ on the provided data set. 
+
+------------
+
+### Use pre-trained non-parametric (ML) models to classify external data (Advanced)
 To use previously trained and saved models to classify a data set contained in a JSON or CSV file:
 
 1. Ensure that the dataset has the same format as the price window files either in CSV or JSON (ie. like `label_databases/german_label_db.json`). Not all data fields need to be present, but there must at least be price series and a unique identifier column for the observations. For example of CSV format, see output of `convert_price_window_json_csv.py`.
-2. Modify basic settings in set parameters section of the `nonparamtric_classify_external_data.py` script. You will need to insert:
+2. Modify basic settings in set parameters section of the `nonparametric_classify_external_data.py` script. You will need to insert:
    - training set hash (see logs) from RF or LSTM model that you previously trained and saved
    - the path and filename to your external data file in JSON or CSV.
    - the type of model in {'rf', 'lstm_basic', 'lstm_ensemble'}
    - the filename where you wish to save the results (either CSV or JSON extensions accepted)
-3. Run script using `python nonparamtric_classify_external_data.py`
-4. Classification results can be found in the chosen file
+3. Run script using `python nonparametric_classify_external_data.py`
+4. Classification results can be found in the specified file
 
 **Note:** The performance of the models will generally be negatively affected by biases or other features of the external data that were not also in the training data. Proceed with caution when using this feature. 
 
