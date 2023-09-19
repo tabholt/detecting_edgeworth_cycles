@@ -72,7 +72,7 @@ np.set_printoptions(edgeitems=8, precision=4, suppress=True, linewidth=180)
 
 #################### SET PARAMETERS ####################
 # basic settings (should be updated)
-pretrained_model_tsh = '32a0cdf61a24144c4b83df822a4302da' # add hash from a pre-trained model
+pretrained_model_tsh = '5e902479bedaf4d15cd967c7d4b8db61' # add hash from a pre-trained model
 external_data_path = 'label_databases/ALL_detrended_price_windows.json' # either json or csv
 model_type = 'lstm_basic' # in {'rf', 'lstm_basic', 'lstm_ensemble'}
 region = 'de' # in {'de', 'nsw', 'wa'} the region of the pre-trained model
@@ -143,6 +143,7 @@ def convert_csv_price_matrix(external_data_path, series_prefix='det_p', id_colum
 
 
 def build_X_lstm(lstm_model, sims):
+    print(f'extracting features...')
     n = sims.shape[0]
     m = lstm_model.data.train
     m.method_arrays = {}
@@ -206,6 +207,20 @@ def export_results(dictionary, filename):
         raise Exception('Incompatible export file type. Must be json or csv.')
 
 
+def print_classification_summary(classifs):
+    classifs = classifs.values()
+    n = len(classifs)
+    col = [20,12] # column widths
+    heading = f'\n{model_type.upper()} Classification Summary'
+    print(heading)
+    print('-'*(sum(col)+1))
+    print('{:<{}}|{:>{}}'.format('n Evaluations', col[0], n, col[1]))
+    print('{:<{}}|{:>{}}'.format('True Evaluations', col[0], sum(classifs), col[1]))
+    print('{:<{}}|{:>{}}'.format('False Evaluations', col[0], n-sum(classifs), col[1]))
+    print('-'*(sum(col)+1))
+    print('{:<{}}|{:>{}}\n'.format('% True Evaluations', col[0], round(sum(classifs)/n*100,2), col[1]))
+
+
 def main():
     print(f'loading data from: {external_data_path}...')
     if external_data_path.split('.')[-1] == 'json':
@@ -229,8 +244,9 @@ def main():
     evals = model.network.predict(X)
     evals = np.where(evals < 0.5, 0, 1)
     evals = evals.flatten().tolist()
-    lstm_classifications = dict(zip(col_labels, evals))
-    export_results(lstm_classifications, results_export_filename)
+    classifications = dict(zip(col_labels, evals))
+    print_classification_summary(classifications)
+    export_results(classifications, results_export_filename)
 
 if __name__ == '__main__':
     main()

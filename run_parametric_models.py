@@ -35,7 +35,7 @@ from framework.model_settings import full_region_names
 
 
 #################### SET PARAMETERS ####################
-fix_seed = True
+fix_random_seed = True
 train_fraction = .8
 false_criterion = None
 parametric_logger_name = 'parametric_model_log.csv'
@@ -73,7 +73,7 @@ def optimize_and_test_param_model(region, train_fraction, false_criterion, metho
     truth_criterion = tc_dict[region]
     model = Model_Container(region, truth_criterion, train_fraction,
                             false_criterion=false_criterion,
-                            test_on_full_set=False, fix_seed=fix_seed)
+                            test_on_full_set=False, fix_seed=fix_random_seed)
     print(f'\nOptimizing {method} parameter...\n')
     theta_star, _, _ = model.train.MAGS(
         method,

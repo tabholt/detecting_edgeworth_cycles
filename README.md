@@ -239,6 +239,8 @@ To use previously trained and saved models to classify a data set contained in a
 
 **Note:** The performance of the models will generally be negatively affected by biases or other features of the external data that were not also in the training data. Proceed with caution when using this feature. 
 
+------------
+
 
 ### Parse Tankerkoenig DE raw data into convenient data structures
 To efficiently parse the [Tankerkoenig](https://tankerkoenig@dev.azure.com/tankerkoenig/tankerkoenig-data/_git/tankerkoenig-data) raw data into easy to use data structures:
@@ -259,6 +261,9 @@ The output of this script will be found by default in the folder `de_databases`.
 - This step will require at least 8GB of RAM memory, but 16GB or more is recommended.
 - The script is preconfigured to expect the folder `tankerkoenig-data` in the main directory. This can be configured using the `framework/de_data_parsing/parameters.py dirs['raw_german_data_folder']` variable.
 - The script will ask before overwriting data.
+
+------------
+
 
 ### Convert JSON price window files to CSV and vice-versa
 Price window data files as produced by the `de_rawdata_parse_postal_region.py` can be converted into CSV files using the script `convert_price_window_json_csv.py`. Conversion can also be performed on user generated data between CSV and JSON formats, provided the data conforms to the same structure as the base provided data. 

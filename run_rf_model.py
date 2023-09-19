@@ -33,7 +33,7 @@ from framework.model_settings import rf_features
 
 
 #################### SET PARAMETERS ####################
-fix_seed = True
+fix_random_seed = True
 train_fraction = .8
 false_criterion = None
 rf_logger_name = 'random_forest_model_log.csv'
@@ -46,7 +46,7 @@ save_model = False
 def build_and_train_RF(region, train_fraction, false_criterion):
     truth_criterion = tc_dict[region]
     rf = RF.RF_Model(region, truth_criterion, rf_features,
-                     train_fraction, false_criterion=false_criterion, test_on_full_set=False, fix_seed=fix_seed)
+                     train_fraction, false_criterion=false_criterion, test_on_full_set=False, fix_seed=fix_random_seed)
     tr_hash = rf.training_set_hash
     rf.extract_features()
     rf.fit_model()

@@ -43,7 +43,7 @@ from framework.model_settings import full_region_names
 from framework.model_settings import lstm_features
 
 #################### SET PARAMETERS ####################
-fix_seed = True
+fix_random_seed = True
 detrend_price = True
 train_fraction = .8
 false_criterion = None
@@ -67,7 +67,7 @@ def build_and_train_LSTM(region, train_fraction, detrend_price, false_criterion,
                             false_criterion=false_criterion,
                             normalize=False,
                             test_on_full_set=False,
-                            fix_seed=fix_seed
+                            fix_seed=fix_random_seed
                             )
     tr_hash = model.training_set_hash
     print(tr_hash)

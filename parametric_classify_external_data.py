@@ -51,8 +51,7 @@ np.set_printoptions(edgeitems=8, precision=4, suppress=True, linewidth=180)
 
 #################### SET PARAMETERS ####################
 # basic settings (should be updated)
-# external_data_path = 'label_databases/ALL_detrended_price_windows.json' # either json or csv
-external_data_path = 'label_databases/nsw_label_db.json' # either json or csv
+external_data_path = 'label_databases/ALL_detrended_price_windows.json' # either json or csv
 
 # advanced settings (recommend to not update)
 results_export_suffix = 'external_classification_results.json' # either json or csv
@@ -142,10 +141,27 @@ def export_results(dictionary, filename, region, method):
         raise Exception('Incompatible export file type. Must be json or csv.')
 
 
+def print_classification_summary(classifs, method, theta_star):
+    classifs = classifs.values()
+    n = len(classifs)
+    col = [20,12] # column widths
+    heading = f'\n{method.upper()} Classification Summary'
+    print(heading)
+    print('-'*(sum(col)+1))
+    print('{:<{}}|{:>{}}'.format('theta_star =', col[0], str(theta_star), col[1]))
+    print('-'*(sum(col)+1))
+    print('{:<{}}|{:>{}}'.format('n Evaluations', col[0], n, col[1]))
+    print('{:<{}}|{:>{}}'.format('True Evaluations', col[0], sum(classifs), col[1]))
+    print('{:<{}}|{:>{}}'.format('False Evaluations', col[0], n-sum(classifs), col[1]))
+    print('-'*(sum(col)+1))
+    print('{:<{}}|{:>{}}\n'.format('% True Evaluations', col[0], round(sum(classifs)/n*100,2), col[1]))
+
+
 def run_method(region, method, col_labels, price_matrix):
     theta_star = load_theta_star(region, method)
     print(f'\nEvaluating {method} on external data with theta={theta_star}')
     classifications = evaluate_method_external_data(method, col_labels, price_matrix, theta_star)
+    print_classification_summary(classifications, method, theta_star)
     export_results(classifications, results_export_suffix, region, method)
 
 if __name__ == '__main__':
