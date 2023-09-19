@@ -28,11 +28,10 @@ Electronic Resource and Data Citation:
 ```
 @dataset{holt2023data,
   author={Holt, Timothy and Igami, Mitsuru and Scheidegger, Simon},
-  title        = {Replication Package for: Detecting Edgeworth Cycles (Version 1)},
+  title        = {Replication Package for: Detecting Edgeworth Cycles},
   month        = may,
   year         = 2023,
   publisher    = {Zenodo},
-  version      = 1,
   doi          = {10.5281/zenodo.7950794},
   url          = {https://doi.org/10.5281/zenodo.7950794}
 }
