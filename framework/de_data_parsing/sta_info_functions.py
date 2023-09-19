@@ -89,7 +89,7 @@ def line_to_station(line):
 
 
 def info_file_to_dict(filename, sta_dict):
-    f = open(filename)
+    f = open(filename, 'rt', encoding='UTF-8')
     reader = csv.reader(f)
     for i, line in enumerate(reader):
         if i == 0:

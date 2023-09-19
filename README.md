@@ -14,16 +14,27 @@ The scripts in this repository allow the user to:
 
 Please cite "[Detecting Edgeworth Cycles](https://ssrn.com/abstract=3934367)" in your publications if this resource helps your research or teaching:
 
+Paper Citation:
 ```
 @article{holt2023detecting,
   title={Detecting Edgeworth Cycles},
   author={Holt, Timothy and Igami, Mitsuru and Scheidegger, Simon},
   year={2023},
-  month={May},
-  day={19},
-  journal={SSRN},
-  doi={10.2139/ssrn.3934367},
-  url={https://ssrn.com/abstract=3934367}
+  journal={The Journal of Law and Economics},
+}
+```
+
+Electronic Resource and Data Citation:
+```
+@dataset{holt2023data,
+  author={Holt, Timothy and Igami, Mitsuru and Scheidegger, Simon},
+  title        = {Replication Package for: Detecting Edgeworth Cycles (Version 1)},
+  month        = may,
+  year         = 2023,
+  publisher    = {Zenodo},
+  version      = 1,
+  doi          = {10.5281/zenodo.7950794},
+  url          = {https://doi.org/10.5281/zenodo.7950794}
 }
 ```
 
@@ -86,7 +97,7 @@ To run the code, you must first download (clone) this repository:
   - `curl https://drive.switch.ch/index.php/s/pwq1Sw0RssyDuUC/download --output ALL_detrended_price_windows.json` 
   - Only about 10 percent of observations contain human labels. {1: cycling, 0.5: maybe cycling, 0: not cycling}
 
-**Note:** These commands may not work on Windows. In this case, you may either [install Git](https://github.com/git-guides/install-git) and/or [install curl](https://developer.zendesk.com/documentation/api-basics/getting-started/installing-and-using-curl/#windows) or download these repositories from the following links: [tankerkoenig](https://dev.azure.com/tankerkoenig/tankerkoenig-data/_git/tankerkoenig-data) [detrended_price_windows](https://drive.switch.ch/index.php/s/pwq1Sw0RssyDuUC/download) and then unzip it in your desired directory. 
+**Note:** These commands may not work on Windows. In this case, you may either [install Git](https://github.com/git-guides/install-git) and/or [install curl](https://developer.zendesk.com/documentation/api-basics/getting-started/installing-and-using-curl/#windows) or download these repositories from the following links: [tankerkoenig](https://dev.azure.com/tankerkoenig/tankerkoenig-data/_git/tankerkoenig-data), [detrended_price_windows](https://drive.switch.ch/index.php/s/pwq1Sw0RssyDuUC/download) and then unzip it in your desired directory. 
 
 ## Requirements
 This code requires Python 3.8 or later, with the following packages and their associated dependencies:
@@ -162,6 +173,8 @@ To train and test parametric models run the script `run_parametric_models.py`
 
 Once the model has run, results will be printed to the terminal, and saved in a CSV log file called `parametric_model_log.csv`. Running multiple models will append new lines onto this log file.
 
+**Note:** The optimal parameter $\theta$ values can be saved by setting `save_model = True` in the parameters section of the python script. This will be necessary to use the optimal $\theta$ values to classify external data. 
+
 **Correspondences with Methods in Paper**
 
 | Shortcut   | Description                                                     |
@@ -216,7 +229,7 @@ To use previously trained, optimal theta values to classify a data set contained
 
 1. Ensure that the dataset has the same format as the price window files either in CSV or JSON (ie. like `label_databases/german_label_db.json`). Not all data fields need to be present, but there must at least be price series and a unique identifier column for the observations. For example of CSV format, see output of `convert_price_window_json_csv.py`.
 2. Set the `external_data_path` parameter of the `parametric_classify_external_data.py` script to the file containing your data.
-3. Run script using `python parametric_classify_external_data.py`
+3. Run script `parametric_classify_external_data.py`
    - arg1 = region in {wa, nsw, de}
    - arg2 = method in {PRNR, MIMD, NMC, MBPI, FT0, FT1, FT2, LS0, LS1, LS2, CS0, CS1, WAVY, all}
 4. Classification results can be found in the specified file
@@ -234,7 +247,7 @@ To use previously trained and saved models to classify a data set contained in a
    - the path and filename to your external data file in JSON or CSV.
    - the type of model in {'rf', 'lstm_basic', 'lstm_ensemble'}
    - the filename where you wish to save the results (either CSV or JSON extensions accepted)
-3. Run script using `python nonparametric_classify_external_data.py`
+3. Run script `nonparametric_classify_external_data.py`
 4. Classification results can be found in the specified file
 
 **Note:** The performance of the models will generally be negatively affected by biases or other features of the external data that were not also in the training data. Proceed with caution when using this feature. 
@@ -268,7 +281,7 @@ The output of this script will be found by default in the folder `de_databases`.
 ### Convert JSON price window files to CSV and vice-versa
 Price window data files as produced by the `de_rawdata_parse_postal_region.py` can be converted into CSV files using the script `convert_price_window_json_csv.py`. Conversion can also be performed on user generated data between CSV and JSON formats, provided the data conforms to the same structure as the base provided data. 
 
-To use the converter run the script `convert_price_window_json_csv.py`
+To use the converter run the script using `convert_price_window_json_csv.py`
   - arg1 = input_filename (str)
 
 The name of the input file must include a path and be either a JSON or CSV file.
