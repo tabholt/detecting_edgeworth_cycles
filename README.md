@@ -1,6 +1,8 @@
 # Detecting Edgeworth Cycles
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7950794.svg)](https://zenodo.org/record/7950794)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7950794.svg)](https://zenodo.org/records/10126406)
+
+https://zenodo.org/badge/DOI/10.5281/zenodo.7950794.svg
 
 Replication package for paper "[Detecting Edgeworth Cycles](https://ssrn.com/abstract=3934367)" by Timothy Holt, Mitsuru Igami, and Simon Scheidegger (2023). We hope that this repository can also serve as a "sandbox" for researchers interested in studying gasoline price data in more detail by providing various tools to assist in the data analysis process.
 
