@@ -4,7 +4,7 @@
 
 https://zenodo.org/badge/DOI/10.5281/zenodo.7950794.svg
 
-Replication package for paper "[Detecting Edgeworth Cycles](https://ssrn.com/abstract=3934367)" by Timothy Holt, Mitsuru Igami, and Simon Scheidegger (2023). We hope that this repository can also serve as a "sandbox" for researchers interested in studying gasoline price data in more detail by providing various tools to assist in the data analysis process.
+Replication package for paper "[Detecting Edgeworth Cycles](https://doi.org/10.1086/726224)" by Timothy Holt, Mitsuru Igami, and Simon Scheidegger (2023). We hope that this repository can also serve as a "sandbox" for researchers interested in studying gasoline price data in more detail by providing various tools to assist in the data analysis process.
 
 The scripts in this repository allow the user to:
 - Test the various parametric, random forest, and LSTM models that were detailed in the paper.
@@ -14,7 +14,7 @@ The scripts in this repository allow the user to:
 
 ## Citation
 
-Please cite "[Detecting Edgeworth Cycles](https://ssrn.com/abstract=3934367)" in your publications if this resource helps your research or teaching:
+Please cite "[Detecting Edgeworth Cycles](https://doi.org/10.1086/726224)" in your publications if this resource helps your research or teaching:
 
 Paper Citation:
 ```
