@@ -18,11 +18,12 @@ Please cite "[Detecting Edgeworth Cycles](https://ssrn.com/abstract=3934367)" in
 
 Paper Citation:
 ```
-@article{holt2023detecting,
+@article{holt2024detecting,
   title={Detecting Edgeworth Cycles},
   author={Holt, Timothy and Igami, Mitsuru and Scheidegger, Simon},
-  year={2023},
+  year={2024},
   journal={The Journal of Law and Economics},
+  doi={https://doi.org/10.1086/726224}
 }
 ```
 
